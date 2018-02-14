@@ -1,0 +1,248 @@
+# Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
+do runlab.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:31 on Feb 13,2018
+# vlog -reportprogress 300 ./ARMCPU.sv 
+# -- Compiling module ARMCPU
+# ** Warning: ./ARMCPU.sv(103): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# -- Compiling module ARMCPU_testbench
+# 
+# Top level modules:
+# 	ARMCPU_testbench
+# End time: 23:57:31 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:31 on Feb 13,2018
+# vlog -reportprogress 300 ./ALUControl.sv 
+# -- Compiling module ALUControl
+# -- Compiling module ALUControl_testbench
+# 
+# Top level modules:
+# 	ALUControl_testbench
+# End time: 23:57:31 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:31 on Feb 13,2018
+# vlog -reportprogress 300 ./control.sv 
+# -- Compiling module control
+# -- Compiling module control_testbench
+# 
+# Top level modules:
+# 	control_testbench
+# End time: 23:57:32 on Feb 13,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:32 on Feb 13,2018
+# vlog -reportprogress 300 ./RegFile/regfile.sv 
+# -- Compiling module regfile
+# 
+# Top level modules:
+# 	regfile
+# End time: 23:57:32 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:32 on Feb 13,2018
+# vlog -reportprogress 300 ./ALU/ARMALU.sv 
+# -- Compiling module ARMALU
+# 
+# Top level modules:
+# 	ARMALU
+# End time: 23:57:33 on Feb 13,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:33 on Feb 13,2018
+# vlog -reportprogress 300 ./math.sv 
+# -- Compiling module mult
+# -- Compiling module shifter
+# -- Compiling module shifter_testbench
+# -- Compiling module mult_testbench
+# 
+# Top level modules:
+# 	shifter_testbench
+# 	mult_testbench
+# End time: 23:57:33 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:33 on Feb 13,2018
+# vlog -reportprogress 300 ./RegFile/DECODER.sv 
+# -- Compiling module DECODER
+# 
+# Top level modules:
+# 	DECODER
+# End time: 23:57:33 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:33 on Feb 13,2018
+# vlog -reportprogress 300 ./RegFile/REG_ARRAY.sv 
+# -- Compiling module REG_ARRAY
+# -- Compiling module REG_FF
+# -- Compiling module D_FF
+# 
+# Top level modules:
+# 	REG_ARRAY
+# End time: 23:57:34 on Feb 13,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:34 on Feb 13,2018
+# vlog -reportprogress 300 ./RegFile/MUX64x32.sv 
+# -- Compiling module MUX64x32
+# 
+# Top level modules:
+# 	MUX64x32
+# End time: 23:57:34 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:34 on Feb 13,2018
+# vlog -reportprogress 300 ./ALU/onebitALU.sv 
+# -- Compiling module onebitALU
+# 
+# Top level modules:
+# 	onebitALU
+# End time: 23:57:34 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:34 on Feb 13,2018
+# vlog -reportprogress 300 ./ALU/overflowDetection.sv 
+# -- Compiling module overflowDetection
+# 
+# Top level modules:
+# 	overflowDetection
+# End time: 23:57:35 on Feb 13,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:35 on Feb 13,2018
+# vlog -reportprogress 300 ./datamem.sv 
+# -- Compiling module datamem
+# -- Compiling module datamem_testbench
+# 
+# Top level modules:
+# 	datamem_testbench
+# End time: 23:57:35 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:35 on Feb 13,2018
+# vlog -reportprogress 300 ./instructmem.sv 
+# -- Compiling module instructmem
+# -- Compiling module instructmem_testbench
+# 
+# Top level modules:
+# 	instructmem_testbench
+# End time: 23:57:35 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:35 on Feb 13,2018
+# vlog -reportprogress 300 ./ALU/adder.sv 
+# -- Compiling module adder
+# 
+# Top level modules:
+# 	adder
+# End time: 23:57:36 on Feb 13,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:36 on Feb 13,2018
+# vlog -reportprogress 300 ./ALU/subtractor.sv 
+# -- Compiling module subtractor
+# 
+# Top level modules:
+# 	subtractor
+# End time: 23:57:36 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:36 on Feb 13,2018
+# vlog -reportprogress 300 ./signExtend.sv 
+# -- Compiling module signExtend
+# ** Warning: ./signExtend.sv(8): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# -- Compiling module signExtend_testBench
+# 
+# Top level modules:
+# 	signExtend_testBench
+# End time: 23:57:36 on Feb 13,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:57:36 on Feb 13,2018
+# vlog -reportprogress 300 ./muxes.sv 
+# -- Compiling module mux2
+# -- Compiling module muxRegToLoc
+# -- Compiling module mux8
+# -- Compiling module muxMemToReg
+# 
+# Top level modules:
+# 	mux2
+# 	muxRegToLoc
+# 	mux8
+# 	muxMemToReg
+# End time: 23:57:37 on Feb 13,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vsim -voptargs=""+acc"" -t 1ps -lib work ARMCPU_testbench 
+# Start time: 23:57:38 on Feb 13,2018
+# Loading sv_std.std
+# Loading work.ARMCPU_testbench
+# Loading work.ARMCPU
+# Loading work.control
+# Loading work.instructmem
+# Loading work.regfile
+# Loading work.DECODER
+# Loading work.REG_ARRAY
+# Loading work.REG_FF
+# Loading work.MUX64x32
+# Loading work.ALUControl
+# Loading work.ARMALU
+# Loading work.onebitALU
+# Loading work.adder
+# Loading work.subtractor
+# Loading work.overflowDetection
+# Loading work.datamem
+# Loading work.muxRegToLoc
+# Loading work.mux2
+# Loading work.mux8
+# Loading work.signExtend
+# Loading work.shifter
+# Loading work.mult
+# Loading work.D_FF
+# ** Warning: (vsim-3839) ./ARMCPU.sv(85): Variable '/ARMCPU_testbench/armcp/mult_high', driven via a port connection, is multiply driven. See ./ARMCPU.sv(84).
+#    Time: 0 ps  Iteration: 0  Instance: /ARMCPU_testbench/armcp/m2 File: ./math.sv
+# WARNING: No extended dataflow license exists
+# .main_pane.wave.interior.cs.body.pw.wf
+# .main_pane.structure.interior.cs.body.struct
+# .main_pane.objects.interior.cs.body.tree
+# Running benchmark: ./test05_Blt.arm
+# ** Error: Assertion error.
+#    Time: 7500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 22500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 32500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 37500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 47500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 52500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 57500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 62500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 67500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 72500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 77500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 82500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 87500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 92500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 97500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 102500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Error: Assertion error.
+#    Time: 107500 us  Scope: ARMCPU_testbench.armcp.data File: ./datamem.sv Line: 31
+# ** Note: $stop    : ./ARMCPU.sv(148)
+#    Time: 107500 us  Iteration: 1  Instance: /ARMCPU_testbench
+# Break in Module ARMCPU_testbench at ./ARMCPU.sv line 148
+# End time: 23:58:18 on Feb 13,2018, Elapsed time: 0:00:40
+# Errors: 17, Warnings: 2

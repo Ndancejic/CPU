@@ -1,0 +1,30 @@
+module ARMALU (A, B, cntrl, result, negative, zero, overflow, carry_out);
+	input logic [63:0] A, B; //64 bit numbers A and B
+	input logic [2:0] cntrl;
+	output logic [63:0] result;
+	output logic negative, zero, overflow, carry_out;
+
+	logic [63:0] carryInOut;
+
+	//generate 32 onebitALU
+	genvar i;
+	generate
+		//first ALU has a carry of 0
+		onebitALU firstALU (.a(A[0]), .b(B[0]), .carryIn(1'b0), .op(cntrl), .Result(result[0]), .carryOut(carryInOut[1]));
+		for(i = 1; i < 63; i++) begin : eachALU
+			onebitALU oneALU (.a(A[i]), .b(B[i]), .carryIn(carryInOut[i]), .op(cntrl), .Result(result[i]), .carryOut(carryInOut[i+1]));
+		end
+		onebitALU finalALU (.a(A[63]), .b(B[63]), .carryIn(carryInOut[63]), .op(cntrl), .Result(result[63]), .carryOut(carry_out));
+		//final ALU carries out to carry_out
+	endgenerate
+
+	//detects overflow
+	overflowDetection flow (.a(A[63]), .b(B[63]), .result(result[63]), .overflow(overflow), .op(cntrl[0]));
+
+	//combs for negative or zero
+	always_comb begin
+		negative <= result[63];
+		zero <= (result == 63'd0);
+	end
+
+endmodule

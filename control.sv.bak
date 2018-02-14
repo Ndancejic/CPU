@@ -1,0 +1,188 @@
+module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir);
+	input logic [10:0] opCode;
+	input logic zero;
+	output logic Reg2Loc, MemToReg, BrTaken, RegWriteEn, MemWrite, UncondBr, shiftDir;
+	output logic [1:0] ALUOp;
+	output logic [2:0] ALUSrc;
+
+	always_comb begin
+		casex(opCode)
+							//ADDS
+			11'b10101011000:
+								begin
+									Reg2Loc <= 1;
+									MemToReg <= 0;
+									ALUSrc <= 3'b000;
+									BrTaken <= 0;
+									RegWriteEn <= 1;
+									MemWrite <= 0;
+									ALUOp <= 2'b10;
+									shiftDir<=0;
+									UncondBr<=0;
+								end
+							 //SUBS
+			11'b11101011000:
+							begin
+									Reg2Loc<=1;
+									MemToReg<=0;
+									ALUSrc<= 3'b000;
+									BrTaken<=0;
+									RegWriteEn<=1;
+									MemWrite<=0;
+									ALUOp<=2'b10;
+									UncondBr<=0;
+									shiftDir<=0;
+							end
+							//ADDI
+			11'b1001000100x:
+							begin
+									Reg2Loc<=1;
+									MemToReg<=0;
+									ALUSrc<= 3'b001;
+									BrTaken<=0;
+									RegWriteEn<=1;
+									MemWrite<=0;
+									ALUOp<=2'b10;
+									shiftDir<=0;
+									UncondBr<=0;
+							end
+							//LDUR
+			11'b11111000010:
+							begin
+									Reg2Loc<=0;
+									MemToReg<=1;
+									ALUSrc<=3'b100;
+									BrTaken<=0;
+									RegWriteEn<=1;
+									MemWrite<=0;
+									ALUOp<=2'b00;
+									shiftDir<=0;
+									UncondBr<=0;
+							end
+							//STUR
+			11'b11111000000:
+							begin
+									Reg2Loc<=0;
+									ALUSrc<=3'b100;
+									BrTaken<=0;
+									RegWriteEn<=0;
+									MemWrite<=1;
+									ALUOp<=2'b00;
+									MemToReg<=0;
+									shiftDir<=0;
+									UncondBr<=0;
+							end
+							//B
+			11'b000101xxxxx:
+							begin
+									Reg2Loc <= 0;
+									BrTaken<=1;
+									UncondBr<=1;
+									RegWriteEn<=0;
+									MemWrite<=0;
+									MemToReg<=0;
+									ALUOp<=2'b00;
+									shiftDir<=0;
+							end
+							//CBZ
+			11'b10110100xxx:
+							begin
+									Reg2Loc<=0;
+									ALUSrc<=3'b000;
+									BrTaken<=zero;
+									UncondBr<=0;
+									RegWriteEn<=0;
+									MemWrite<=0;
+									ALUOp<=2'b01;
+									MemToReg<=0;
+									shiftDir<=0;
+							end
+							//LSL
+			11'b11010011011:
+							begin
+									Reg2Loc<=1;
+									MemToReg<=0;
+									ALUSrc<=3'b010;
+									BrTaken<=0;
+									shiftDir<=0;
+									RegWriteEn<=1;
+									MemWrite<=0;
+									ALUOp<=2'b10;
+									UncondBr<=0;
+							end
+							// LSR
+			11'b11010011010:
+							begin
+									Reg2Loc<=1;
+									MemToReg<=0;
+									ALUSrc<=3'b010;
+									BrTaken<=0;
+									shiftDir<=1;
+									RegWriteEn<=1;
+									MemWrite<=0;
+									ALUOp<=2'b10;
+									UncondBr<=0;
+							end
+							// MULT
+			11'b10011011000:
+							begin
+									Reg2Loc <= 1;
+									MemToReg <= 0;
+									ALUSrc <= 3'b011;
+									BrTaken <= 0;
+									RegWriteEn <= 1;
+									MemWrite <= 0;
+									ALUOp <= 2'b10;
+									shiftDir<=0;
+									UncondBr<=0;
+							 end
+							 //B.LT
+			11'b01010100xxx:
+							begin
+									Reg2Loc<=1;
+									MemToReg<=0;
+									ALUSrc<= 3'b000;
+									BrTaken<=0;
+									RegWriteEn<=1;
+									MemWrite<=0;
+									ALUOp<=2'b10;
+									shiftDir<=0;
+									UncondBr<=0;
+							end
+							//default case
+			default:
+							begin
+									Reg2Loc<=0;
+									MemToReg<=0;
+									ALUSrc<= 3'b000;
+									BrTaken<=0;
+									RegWriteEn<=0;
+									MemWrite<=0;
+									ALUOp<=2'b10;
+									shiftDir<=0;
+									UncondBr<=0;
+							end
+		endcase
+	end
+endmodule
+
+module control_testbench();
+	parameter delay = 100000;
+
+	  logic [10:0] opCode;
+	 logic zero;
+	 logic Reg2Loc, MemToReg, BrTaken, RegWriteEn, MemWrite, UncondBr, shiftDir;
+	 logic [1:0] ALUOp, ALUSrc;
+
+	control ct(.opCode, .zero, .Reg2Loc, .MemToReg, .ALUSrc, .BrTaken, .RegWriteEn, .MemWrite, .UncondBr, .ALUOp, .shiftDir);
+
+	// Force %t's to print in a nice format.
+	initial $timeformat(-9, 2, " ns", 10);
+	initial begin
+
+		$display("%t ControlTesting", $time);
+		opCode = 11'b10110100xxx; zero=1; #(delay);
+		assert(Reg2Loc==0 && ALUSrc==2'b00 && BrTaken==1 &&UncondBr==0 && RegWriteEn==0&&MemWrite==0&&ALUOp==2'b01);
+
+	end
+endmodule
