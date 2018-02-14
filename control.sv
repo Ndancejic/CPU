@@ -1,7 +1,7 @@
-module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir);
+module control(opCode, zero, negative, overflow, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir, MemReadEn);
 	input logic [10:0] opCode;
-	input logic zero;
-	output logic Reg2Loc, MemToReg, BrTaken, RegWriteEn, MemWrite, UncondBr, shiftDir;
+	input logic zero,negative, overflow;
+	output logic Reg2Loc, MemToReg, BrTaken, RegWriteEn, MemWrite, UncondBr, shiftDir, MemReadEn;
 	output logic [1:0] ALUOp;
 	output logic [2:0] ALUSrc;
 
@@ -16,6 +16,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									BrTaken <= 0;
 									RegWriteEn <= 1;
 									MemWrite <= 0;
+									MemReadEn <= 0;
 									ALUOp <= 2'b10;
 									shiftDir<=0;
 									UncondBr<=0;
@@ -29,6 +30,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									BrTaken<=0;
 									RegWriteEn<=1;
 									MemWrite<=0;
+									MemReadEn <= 0;
 									ALUOp<=2'b10;
 									UncondBr<=0;
 									shiftDir<=0;
@@ -42,6 +44,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									BrTaken<=0;
 									RegWriteEn<=1;
 									MemWrite<=0;
+									MemReadEn <= 0;
 									ALUOp<=2'b10;
 									shiftDir<=0;
 									UncondBr<=0;
@@ -55,6 +58,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									BrTaken<=0;
 									RegWriteEn<=1;
 									MemWrite<=0;
+									MemReadEn <= 1;
 									ALUOp<=2'b00;
 									shiftDir<=0;
 									UncondBr<=0;
@@ -67,6 +71,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									BrTaken<=0;
 									RegWriteEn<=0;
 									MemWrite<=1;
+									MemReadEn <= 0;
 									ALUOp<=2'b00;
 									MemToReg<=0;
 									shiftDir<=0;
@@ -80,6 +85,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									UncondBr<=1;
 									RegWriteEn<=0;
 									MemWrite<=0;
+									MemReadEn <=0;
 									MemToReg<=0;
 									ALUOp<=2'b00;
 									ALUSrc<=3'b100;
@@ -94,6 +100,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									UncondBr<=0;
 									RegWriteEn<=0;
 									MemWrite<=0;
+									MemReadEn <=0;
 									ALUOp<=2'b01;
 									MemToReg<=0;
 									shiftDir<=0;
@@ -108,6 +115,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									shiftDir<=0;
 									RegWriteEn<=1;
 									MemWrite<=0;
+									MemReadEn <= 0;
 									ALUOp<=2'b10;
 									UncondBr<=0;
 							end
@@ -121,6 +129,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									shiftDir<=1;
 									RegWriteEn<=1;
 									MemWrite<=0;
+									MemReadEn <= 0;
 									ALUOp<=2'b10;
 									UncondBr<=0;
 							end
@@ -133,6 +142,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									BrTaken <= 0;
 									RegWriteEn <= 1;
 									MemWrite <= 0;
+									MemReadEn <=0;
 									ALUOp <= 2'b10;
 									shiftDir<=0;
 									UncondBr<=0;
@@ -143,15 +153,16 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									Reg2Loc<=1;
 									MemToReg<=0;
 									ALUSrc<= 3'b000;
-									BrTaken<=1;
+									BrTaken<=negative&~overflow;
 									RegWriteEn<=0;
 									MemWrite<=0;
+									MemReadEn <= 0;
 									ALUOp<=2'b10;
 									shiftDir<=0;
 									UncondBr<=0;
 							end
 							//default case
-			default:
+			/*default:
 							begin
 									Reg2Loc<=0;
 									MemToReg<=0;
@@ -162,7 +173,7 @@ module control(opCode, zero, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, Mem
 									ALUOp<=2'b10;
 									shiftDir<=0;
 									UncondBr<=0;
-							end
+							end*/
 		endcase
 	end
 endmodule
