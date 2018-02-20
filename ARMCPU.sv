@@ -11,19 +11,19 @@ module ARMCPU(clk, reset);
 	logic [2:0] ALUSrc;
 
 	//Instruction memory logic
-	logic [31:0] instr; //instruction
+	logic [31:0] instr, instr_out; //instruction
 	logic [63:0] PC; // Program counter
 	logic [63:0] brAddr, nextAddr, brAddr64, cbAddr64;
 
 	//register logic
-	logic [63:0] ReadData1, ReadData2; //Register data
+	logic [63:0] ReadData1, ReadData2, ReadData1_Out, ReadData2_Out; //Register data
 	logic [4:0] Ra, Rb, Rw, reg2; // read and write registers
 	logic [63:0] writeRegData;
 
 	//ALU Logic
 	logic [10:0] opCode; //11 bits op code
 	logic [63:0] inputB;
-	logic [63:0] ALUresult; //results of ALU opperation
+	logic [63:0] ALUresult, ALUresult_Out; //results of ALU opperation
 	logic [2:0] cntrl;
 	logic negative, zero, overflow, carry_out; //flags from ALU
 	logic negativehold, zerohold, overflowhold, carry_outhold; //flags from ALU to be held over clock
@@ -32,7 +32,7 @@ module ARMCPU(clk, reset);
 
 	//dataMemory Logic
 	logic [3:0] xfer_size;
-	logic [63:0] MemRead;
+	logic [63:0] MemRead, MemRead_Out;
 
 	//sign extend logic
 	logic [63:0] dtAddr64;
@@ -53,48 +53,63 @@ module ARMCPU(clk, reset);
 	instructmem instructions (.address(PC), .instruction(instr), .clk);
 
 	//registers
-	regfile registers (.ReadData1, .ReadData2, .WriteData(writeRegData), .ReadRegister1(Ra),
+	regfile registers (.ReadData1, .ReadData2, .WriteData(MemRead_Out), .ReadRegister1(Ra),
 						.ReadRegister2(reg2), .WriteRegister(Rw), .RegWrite(RegWriteEn), .clk, .reset);
 
 	//ALU
 	ALUControl aluctrl (.ALUOp(ALUOp), .OpcodeField(opCode), .operation(cntrl));
-	ARMALU ALUblock (.A(ReadData1), .B(inputB), .cntrl(cntrl), .result(ALUresult),
+	ARMALU ALUblock (.A(ReadData1_Out), .B(ReadData2_Out), .cntrl(cntrl), .result(ALUresult),
 						.negative, .zero, .overflow, .carry_out);
 
 	//Data memory
-	datamem data (.address(ALUresult), .write_enable(MemWrite), .read_enable(MemReadEn), .write_data(ReadData2), .clk, .xfer_size, .read_data(MemRead));
+	datamem data (.address(ALUresult_Out), .write_enable(MemWrite), .read_enable(MemReadEn), .write_data(ReadData2_Out), .clk, .xfer_size, .read_data(MemRead));
 
 	//muxes
 	muxRegToLoc mtr(.in1(Rb), .in2(Rw), .sel(Reg2Loc), .out(reg2));
-	mux2 r2l(.in1(MemRead), .in2(ALUresult), .sel(MemToReg), .out(writeRegData));
+	mux2 r2l(.in1(MemRead), .in2(ALUresult_Out), .sel(MemToReg), .out(writeRegData));
 	mux2 mbr(.in1(shiftedBrAddr), .in2(shiftedcb), .sel(UncondBr), .out(brRes));
-	mux8 m8(.ReadData2, .ALUimm64, .shiftedVal, .multRes, .dtAddr64, .ALUSrc, .inputB);
+	mux8 m8(.ReadData2(ReadData2), .ALUimm64, .shiftedVal, .multRes, .dtAddr64, .ALUSrc, .inputB);
 
 	//sign extend
-	signExtend dtadd(instr, dtAddr64, 2'b00);
-	signExtend immsign(instr, ALUimm64, 2'b01);
-	signExtend brsign(instr, brAddr64, 2'b10);
-	signExtend cbsign(instr, cbAddr64, 2'b11);
+	signExtend dtadd(instr_out, dtAddr64, 2'b00);
+	signExtend immsign(instr_out, ALUimm64, 2'b01);
+	signExtend brsign(instr_out, brAddr64, 2'b10);
+	signExtend cbsign(instr_out, cbAddr64, 2'b11);
 
 	//address shift
 	shifter shiftLeft2(.value(brAddr64), .direction(1'b0), .distance(6'b000010), .result(shiftedBrAddr));
 	shifter shiftLeft2cb(.value(cbAddr64), .direction(1'b0), .distance(6'b000010), .result(shiftedcb));
-	shifter shiftVal(.value(ReadData1), .direction(shiftDir), .distance(shamt), .result(shiftedVal));
+	shifter shiftVal(.value(ReadData1_Out), .direction(shiftDir), .distance(shamt), .result(shiftedVal));
 
 	//mult
-	mult m1(.A(ReadData1), .B(ReadData2), .doSigned(1'b1), .mult_low(multRes), .mult_high());
+	mult m1(.A(ReadData1_Out), .B(ReadData2_Out), .doSigned(1'b1), .mult_low(multRes), .mult_high());
 
 	//PC logic
 	ARMALU bradd (.A(PC), .B(brRes), .cntrl(3'b010), .result(brAddr), .negative(), .zero(), .overflow(), .carry_out());
 	ARMALU fouradd (.A(PC), .B(64'h0000000000000004), .cntrl(3'b010), .result(nextAddr), .negative(), .zero(), .overflow(), .carry_out());
 
+	//Pipeline Stages
+	//Instruction Fetch
+	Pipeline_Register InstrFetch (.In(instr), .Out(instr_out), .clk, .reset);
+
+	//Register Fetch
+	Pipeline_Register RegFetch (.In(ReadData1), .Out(ReadData1_Out), .clk, .reset);
+	Pipeline_Register RegFetch (.In(inputB), .Out(ReadData2_Out), .clk, .reset);
+
+	//Execute
+	Pipeline_Register Execute (.In(ALUresult), .Out(ALUresult_Out), .clk, .reset);
+
+	//Data memory
+	Pipeline_Register MEM (.In(writeRegData), .Out(MemRead_Out), .clk, .reset);
+
+
 // splitting instruction
 	always_comb begin
-		Rw <= instr[4:0];
-		Ra <= instr[9:5];
-		shamt <= instr[15:10];
-		Rb <= instr[20:16];
-		opCode <= instr[31:21];
+		Rw <= instr_out[4:0];
+		Ra <= instr_out[9:5];
+		shamt <= instr_out[15:10];
+		Rb <= instr_out[20:16];
+		opCode <= instr_out[31:21];
 		xfer_size <= 4'b1000; //just always set to 8
 	end
 

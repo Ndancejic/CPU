@@ -207,3 +207,5 @@ do runlab.do
 # ** Note: $stop    : ./ARMCPU.sv(139)
 #    Time: 5007500 us  Iteration: 1  Instance: /ARMCPU_testbench
 # Break in Module ARMCPU_testbench at ./ARMCPU.sv line 139
+# End time: 12:13:34 on Feb 14,2018, Elapsed time: 0:29:43
+# Errors: 0, Warnings: 1
