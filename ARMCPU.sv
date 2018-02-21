@@ -93,8 +93,8 @@ module ARMCPU(clk, reset);
 	Pipeline_Register InstrFetch (.In(instr), .Out(instr_out), .clk, .reset);
 
 	//Register Fetch
-	Pipeline_Register RegFetch (.In(ReadData1), .Out(ReadData1_Out), .clk, .reset);
-	Pipeline_Register RegFetch (.In(inputB), .Out(ReadData2_Out), .clk, .reset);
+	Pipeline_Register RegFetch1 (.In(ReadData1), .Out(ReadData1_Out), .clk, .reset);
+	Pipeline_Register RegFetch2 (.In(inputB), .Out(ReadData2_Out), .clk, .reset);
 
 	//Execute
 	Pipeline_Register Execute (.In(ALUresult), .Out(ALUresult_Out), .clk, .reset);

@@ -21,6 +21,7 @@ vlog "./ALU/adder.sv"
 vlog "./ALU/subtractor.sv"
 vlog "./signExtend.sv"
 vlog "./muxes.sv"
+vlog "./Pipeline_Register.sv"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the

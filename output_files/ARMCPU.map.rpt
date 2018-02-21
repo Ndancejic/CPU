@@ -1,5 +1,5 @@
 Analysis & Elaboration report for ARMCPU
-Tue Feb 13 21:21:27 2018
+Wed Feb 21 14:03:09 2018
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -36,7 +36,7 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                              ;
 +-------------------------------+---------------------------------------------+
-; Analysis & Elaboration Status ; Failed - Tue Feb 13 21:21:27 2018           ;
+; Analysis & Elaboration Status ; Failed - Wed Feb 21 14:03:09 2018           ;
 ; Quartus Prime Version         ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                 ; ARMCPU                                      ;
 ; Top-level Entity Name         ; ARMCPU                                      ;
@@ -160,83 +160,108 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Tue Feb 13 21:21:09 2018
+    Info: Processing started: Wed Feb 21 14:02:54 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ARMCPU -c ARMCPU --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file pipeline_register.sv
+    Info (12023): Found entity 1: Pipeline_Register File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/Pipeline_Register.sv Line: 1
 Info (12021): Found 5 design units, including 5 entities, in source file regfile/regstim.sv
-    Info (12023): Found entity 1: regstim File: E:/EE 469/Lab 3/RegFile/regstim.sv Line: 4
-    Info (12023): Found entity 2: decodeTest File: E:/EE 469/Lab 3/RegFile/regstim.sv Line: 73
-    Info (12023): Found entity 3: MUXtest File: E:/EE 469/Lab 3/RegFile/regstim.sv Line: 102
-    Info (12023): Found entity 4: RegTest File: E:/EE 469/Lab 3/RegFile/regstim.sv Line: 140
-    Info (12023): Found entity 5: Reg1Test File: E:/EE 469/Lab 3/RegFile/regstim.sv Line: 185
+    Info (12023): Found entity 1: regstim File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/regstim.sv Line: 4
+    Info (12023): Found entity 2: decodeTest File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/regstim.sv Line: 73
+    Info (12023): Found entity 3: MUXtest File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/regstim.sv Line: 102
+    Info (12023): Found entity 4: RegTest File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/regstim.sv Line: 140
+    Info (12023): Found entity 5: Reg1Test File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/regstim.sv Line: 185
 Info (12021): Found 1 design units, including 1 entities, in source file regfile/regfile.sv
-    Info (12023): Found entity 1: regfile File: E:/EE 469/Lab 3/RegFile/regfile.sv Line: 1
+    Info (12023): Found entity 1: regfile File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/regfile.sv Line: 1
 Info (12021): Found 3 design units, including 3 entities, in source file regfile/reg_array.sv
-    Info (12023): Found entity 1: REG_ARRAY File: E:/EE 469/Lab 3/RegFile/REG_ARRAY.sv Line: 2
-    Info (12023): Found entity 2: REG_FF File: E:/EE 469/Lab 3/RegFile/REG_ARRAY.sv Line: 22
-    Info (12023): Found entity 3: D_FF File: E:/EE 469/Lab 3/RegFile/REG_ARRAY.sv Line: 50
+    Info (12023): Found entity 1: REG_ARRAY File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/REG_ARRAY.sv Line: 2
+    Info (12023): Found entity 2: REG_FF File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/REG_ARRAY.sv Line: 22
+    Info (12023): Found entity 3: D_FF File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/REG_ARRAY.sv Line: 50
 Info (12021): Found 1 design units, including 1 entities, in source file regfile/mux64x32.sv
-    Info (12023): Found entity 1: MUX64x32 File: E:/EE 469/Lab 3/RegFile/MUX64x32.sv Line: 2
+    Info (12023): Found entity 1: MUX64x32 File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/MUX64x32.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file regfile/decoder.sv
-    Info (12023): Found entity 1: DECODER File: E:/EE 469/Lab 3/RegFile/DECODER.sv Line: 2
+    Info (12023): Found entity 1: DECODER File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/RegFile/DECODER.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file alu/subtractor.sv
-    Info (12023): Found entity 1: subtractor File: E:/EE 469/Lab 3/ALU/subtractor.sv Line: 2
+    Info (12023): Found entity 1: subtractor File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/subtractor.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file alu/overflowdetection.sv
-    Info (12023): Found entity 1: overflowDetection File: E:/EE 469/Lab 3/ALU/overflowDetection.sv Line: 1
+    Info (12023): Found entity 1: overflowDetection File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/overflowDetection.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file alu/onebitalu.sv
-    Info (12023): Found entity 1: onebitALU File: E:/EE 469/Lab 3/ALU/onebitALU.sv Line: 2
+    Info (12023): Found entity 1: onebitALU File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/onebitALU.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file alu/armalu.sv
-    Info (12023): Found entity 1: ARMALU File: E:/EE 469/Lab 3/ALU/ARMALU.sv Line: 1
+    Info (12023): Found entity 1: ARMALU File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/ARMALU.sv Line: 1
 Info (12021): Found 4 design units, including 4 entities, in source file alu/alustim.sv
-    Info (12023): Found entity 1: alustim File: E:/EE 469/Lab 3/ALU/alustim.sv Line: 20
-    Info (12023): Found entity 2: subtractor_testbench File: E:/EE 469/Lab 3/ALU/alustim.sv Line: 76
-    Info (12023): Found entity 3: onebitALU_testbench File: E:/EE 469/Lab 3/ALU/alustim.sv Line: 109
-    Info (12023): Found entity 4: adder_testbench File: E:/EE 469/Lab 3/ALU/alustim.sv Line: 190
+    Info (12023): Found entity 1: alustim File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/alustim.sv Line: 20
+    Info (12023): Found entity 2: subtractor_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/alustim.sv Line: 76
+    Info (12023): Found entity 3: onebitALU_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/alustim.sv Line: 109
+    Info (12023): Found entity 4: adder_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/alustim.sv Line: 190
 Info (12021): Found 1 design units, including 1 entities, in source file alu/adder.sv
-    Info (12023): Found entity 1: adder File: E:/EE 469/Lab 3/ALU/adder.sv Line: 2
+    Info (12023): Found entity 1: adder File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALU/adder.sv Line: 2
 Info (12021): Found 4 design units, including 4 entities, in source file muxes.sv
-    Info (12023): Found entity 1: mux2 File: E:/EE 469/Lab 3/muxes.sv Line: 1
-    Info (12023): Found entity 2: muxRegToLoc File: E:/EE 469/Lab 3/muxes.sv Line: 11
-    Info (12023): Found entity 3: mux8 File: E:/EE 469/Lab 3/muxes.sv Line: 21
-    Info (12023): Found entity 4: muxMemToReg File: E:/EE 469/Lab 3/muxes.sv Line: 37
+    Info (12023): Found entity 1: mux2 File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/muxes.sv Line: 1
+    Info (12023): Found entity 2: muxRegToLoc File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/muxes.sv Line: 11
+    Info (12023): Found entity 3: mux8 File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/muxes.sv Line: 21
+    Info (12023): Found entity 4: muxMemToReg File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/muxes.sv Line: 37
 Info (12021): Found 4 design units, including 4 entities, in source file math.sv
-    Info (12023): Found entity 1: mult File: E:/EE 469/Lab 3/math.sv Line: 3
-    Info (12023): Found entity 2: shifter File: E:/EE 469/Lab 3/math.sv Line: 33
-    Info (12023): Found entity 3: shifter_testbench File: E:/EE 469/Lab 3/math.sv Line: 48
-    Info (12023): Found entity 4: mult_testbench File: E:/EE 469/Lab 3/math.sv Line: 68
+    Info (12023): Found entity 1: mult File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/math.sv Line: 3
+    Info (12023): Found entity 2: shifter File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/math.sv Line: 33
+    Info (12023): Found entity 3: shifter_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/math.sv Line: 48
+    Info (12023): Found entity 4: mult_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/math.sv Line: 68
 Info (12021): Found 2 design units, including 2 entities, in source file instructmem.sv
-    Info (12023): Found entity 1: instructmem File: E:/EE 469/Lab 3/instructmem.sv Line: 17
-    Info (12023): Found entity 2: instructmem_testbench File: E:/EE 469/Lab 3/instructmem.sv Line: 57
+    Info (12023): Found entity 1: instructmem File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/instructmem.sv Line: 20
+    Info (12023): Found entity 2: instructmem_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/instructmem.sv Line: 60
 Info (12021): Found 2 design units, including 2 entities, in source file datamem.sv
-    Info (12023): Found entity 1: datamem File: E:/EE 469/Lab 3/datamem.sv Line: 12
-    Info (12023): Found entity 2: datamem_testbench File: E:/EE 469/Lab 3/datamem.sv Line: 70
+    Info (12023): Found entity 1: datamem File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/datamem.sv Line: 12
+    Info (12023): Found entity 2: datamem_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/datamem.sv Line: 70
 Info (12021): Found 2 design units, including 2 entities, in source file control.sv
-    Info (12023): Found entity 1: control File: E:/EE 469/Lab 3/control.sv Line: 1
-    Info (12023): Found entity 2: control_testbench File: E:/EE 469/Lab 3/control.sv Line: 170
+    Info (12023): Found entity 1: control File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 1
+    Info (12023): Found entity 2: control_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 181
 Info (12021): Found 2 design units, including 2 entities, in source file armcpu.sv
-    Info (12023): Found entity 1: ARMCPU File: E:/EE 469/Lab 3/ARMCPU.sv Line: 3
-    Info (12023): Found entity 2: ARMCPU_testbench File: E:/EE 469/Lab 3/ARMCPU.sv Line: 117
+    Info (12023): Found entity 1: ARMCPU File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ARMCPU.sv Line: 3
+    Info (12023): Found entity 2: ARMCPU_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ARMCPU.sv Line: 133
 Info (12021): Found 2 design units, including 2 entities, in source file alucontrol.sv
-    Info (12023): Found entity 1: ALUControl File: E:/EE 469/Lab 3/ALUControl.sv Line: 1
-    Info (12023): Found entity 2: ALUControl_testbench File: E:/EE 469/Lab 3/ALUControl.sv Line: 26
-Warning (10229): Verilog HDL Expression warning at signExtend.sv(8): truncated literal to match 55 bits File: E:/EE 469/Lab 3/signExtend.sv Line: 8
-Warning (10229): Verilog HDL Expression warning at signExtend.sv(10): truncated literal to match 38 bits File: E:/EE 469/Lab 3/signExtend.sv Line: 10
-Warning (10229): Verilog HDL Expression warning at signExtend.sv(11): truncated literal to match 46 bits File: E:/EE 469/Lab 3/signExtend.sv Line: 11
+    Info (12023): Found entity 1: ALUControl File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALUControl.sv Line: 1
+    Info (12023): Found entity 2: ALUControl_testbench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ALUControl.sv Line: 26
+Warning (10229): Verilog HDL Expression warning at signExtend.sv(8): truncated literal to match 55 bits File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/signExtend.sv Line: 8
+Warning (10229): Verilog HDL Expression warning at signExtend.sv(10): truncated literal to match 38 bits File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/signExtend.sv Line: 10
+Warning (10229): Verilog HDL Expression warning at signExtend.sv(11): truncated literal to match 46 bits File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/signExtend.sv Line: 11
 Info (12021): Found 2 design units, including 2 entities, in source file signextend.sv
-    Info (12023): Found entity 1: signExtend File: E:/EE 469/Lab 3/signExtend.sv Line: 1
-    Info (12023): Found entity 2: signExtend_testBench File: E:/EE 469/Lab 3/signExtend.sv Line: 17
+    Info (12023): Found entity 1: signExtend File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/signExtend.sv Line: 1
+    Info (12023): Found entity 2: signExtend_testBench File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/signExtend.sv Line: 17
 Info (12127): Elaborating entity "ARMCPU" for the top level hierarchy
-Info (12128): Elaborating entity "control" for hierarchy "control:c1" File: E:/EE 469/Lab 3/ARMCPU.sv Line: 48
-Info (12128): Elaborating entity "instructmem" for hierarchy "instructmem:instructions" File: E:/EE 469/Lab 3/ARMCPU.sv Line: 51
-Warning (10175): Verilog HDL warning at instructmem.sv(24): ignoring unsupported system task File: E:/EE 469/Lab 3/instructmem.sv Line: 24
-Error (10170): Verilog HDL syntax error at test05_Blt.arm(50) near text: _. Check for and fix any syntax errors that appear immediately before or at the specified keyword. The Intel FPGA Knowledge Database contains many articles with specific details on how to resolve this error. Visit the Knowledge Database at https://www.altera.com/support/support-resources/knowledge-base/search.html and search for this specific error message number. File: E:/EE 469/Lab 3/test05_Blt.arm Line: 50
-Info (10648): Verilog HDL Display System Task info at instructmem.sv(43): Running benchmark:  File: E:/EE 469/Lab 3/instructmem.sv Line: 43
-Error (12152): Can't elaborate user hierarchy "instructmem:instructions" File: E:/EE 469/Lab 3/ARMCPU.sv Line: 51
-Error: Quartus Prime Analysis & Elaboration was unsuccessful. 2 errors, 5 warnings
-    Error: Peak virtual memory: 701 megabytes
-    Error: Processing ended: Tue Feb 13 21:21:27 2018
-    Error: Elapsed time: 00:00:18
-    Error: Total CPU time (on all processors): 00:00:32
+Warning (10036): Verilog HDL or VHDL warning at ARMCPU.sv(29): object "zerohold" assigned a value but never read File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ARMCPU.sv Line: 29
+Warning (10036): Verilog HDL or VHDL warning at ARMCPU.sv(29): object "carry_outhold" assigned a value but never read File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ARMCPU.sv Line: 29
+Info (12128): Elaborating entity "control" for hierarchy "control:c1" File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ARMCPU.sv Line: 50
+Warning (10270): Verilog HDL Case Statement warning at control.sv(9): incomplete case statement has no default case item File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "Reg2Loc", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "MemToReg", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "ALUSrc", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "BrTaken", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "RegWriteEn", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "MemWrite", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "MemReadEn", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "ALUOp", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "shiftDir", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Warning (10240): Verilog HDL Always Construct warning at control.sv(9): inferring latch(es) for variable "UncondBr", which holds its previous value in one or more paths through the always construct File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Error (10166): SystemVerilog RTL Coding error at control.sv(9): always_comb construct does not infer purely combinational logic. File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "UncondBr" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "shiftDir" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "ALUOp[0]" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "ALUOp[1]" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "MemReadEn" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "MemWrite" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "RegWriteEn" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "BrTaken" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "ALUSrc[0]" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "ALUSrc[1]" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "ALUSrc[2]" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "MemToReg" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Info (10041): Inferred latch for "Reg2Loc" at control.sv(9) File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/control.sv Line: 9
+Error (12152): Can't elaborate user hierarchy "control:c1" File: C:/Users/nikol/Documents/EE469/Lab 3/CPU/ARMCPU.sv Line: 50
+Error: Quartus Prime Analysis & Elaboration was unsuccessful. 2 errors, 17 warnings
+    Error: Peak virtual memory: 699 megabytes
+    Error: Processing ended: Wed Feb 21 14:03:09 2018
+    Error: Elapsed time: 00:00:15
+    Error: Total CPU time (on all processors): 00:00:31
 
 

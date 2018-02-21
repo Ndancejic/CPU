@@ -51,6 +51,8 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE Pipeline_Register.sv
 set_global_assignment -name SOURCE_FILE test12_Division.arm
 set_global_assignment -name SOURCE_FILE test11_Sort.arm
 set_global_assignment -name SOURCE_FILE test10_forwarding.arm
@@ -79,4 +81,3 @@ set_global_assignment -name SYSTEMVERILOG_FILE control.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ARMCPU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ALUControl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE signExtend.sv
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
