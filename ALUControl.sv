@@ -13,11 +13,6 @@ module ALUControl(ALUOp, OpcodeField, operation);
 				11'b11111000000: operation <= 3'b010; //add
 				11'b11101011000: operation <= 3'b011; //sub
 				11'b1001000100x: operation <= 3'b010; //add
-				11'b10001010000: operation <= 3'b000; //pass b
-				11'b11010011011: operation <= 3'b000; //pass b
-				11'b11010011010: operation <= 3'b000; //pass b
-				11'b10011011000: operation <= 3'b000; //pass b
-				11'b01010100xxx: operation <= 3'b000; //pass b
 				default: operation <= 3'b000;
 			endcase
 	end

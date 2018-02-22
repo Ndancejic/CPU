@@ -7,11 +7,14 @@ module ARMCPU(clk, reset);
 
 	//control logic
 	logic Reg2Loc, MemToReg, BrTaken, UncondBr, shiftDir, RegWriteEn, MemWrite, MemReadEn;
+	logic Reg2LocEX, MemToRegEX, BrTakenEX, UncondBrEX, shiftDirEX, RegWriteEnEX, MemWriteEX, MemReadEnEX;
+	logic MemToRegMem, RegWriteEnMem, MemReadEnMem;
 	logic [1:0] ALUOp;
 	logic [2:0] ALUSrc;
 
 	//Instruction memory logic
-	logic [31:0] instr, instr_out; //instruction
+	logic [31:0] instr; //instruction
+	logic [63:0] instr64, instr_out;
 	logic [63:0] PC; // Program counter
 	logic [63:0] brAddr, nextAddr, brAddr64, cbAddr64;
 
@@ -26,7 +29,7 @@ module ARMCPU(clk, reset);
 	logic [63:0] ALUresult, ALUresult_Out; //results of ALU opperation
 	logic [2:0] cntrl;
 	logic negative, zero, overflow, carry_out; //flags from ALU
-	logic negativehold, zerohold, overflowhold, carry_outhold; //flags from ALU to be held over clock
+	logic negativeHold, zeroHold, overflowHold, carry_outHold; //flags from ALU to be held over clock
 	logic [11:0] ALUimm;
 	logic [63:0] ALUimm64;
 
@@ -46,7 +49,7 @@ module ARMCPU(clk, reset);
 	logic [63:0] brRes;
 
 	//control
-	control c1 (.opCode, .zero, .negative(negativehold), .overflow(overflowhold), .Reg2Loc,
+	control c1 (.opCode, .zero(zeroHold), .negative, .overflow, .Reg2Loc,
 				.MemToReg, .ALUSrc, .BrTaken, .RegWriteEn, .MemWrite, .UncondBr, .ALUOp, .shiftDir, .MemReadEn);
 
 	//Instruction memory
@@ -59,7 +62,7 @@ module ARMCPU(clk, reset);
 	//ALU
 	ALUControl aluctrl (.ALUOp(ALUOp), .OpcodeField(opCode), .operation(cntrl));
 	ARMALU ALUblock (.A(ReadData1_Out), .B(ReadData2_Out), .cntrl(cntrl), .result(ALUresult),
-						.negative, .zero, .overflow, .carry_out);
+						.negative(negativeHold), .zero(zeroHold), .overflow(overflowHold), .carry_out(carry_outHold));
 
 	//Data memory
 	datamem data (.address(ALUresult_Out), .write_enable(MemWrite), .read_enable(MemReadEn), .write_data(ReadData2_Out), .clk, .xfer_size, .read_data(MemRead));
@@ -75,6 +78,7 @@ module ARMCPU(clk, reset);
 	signExtend immsign(instr_out, ALUimm64, 2'b01);
 	signExtend brsign(instr_out, brAddr64, 2'b10);
 	signExtend cbsign(instr_out, cbAddr64, 2'b11);
+	signExtend ins(.in(instr), .out(instr64), .ext());
 
 	//address shift
 	shifter shiftLeft2(.value(brAddr64), .direction(1'b0), .distance(6'b000010), .result(shiftedBrAddr));
@@ -90,14 +94,30 @@ module ARMCPU(clk, reset);
 
 	//Pipeline Stages
 	//Instruction Fetch
-	Pipeline_Register InstrFetch (.In(instr), .Out(instr_out), .clk, .reset);
+	Pipeline_Register InstrFetch (.In(instr64), .Out(instr_out), .clk, .reset);
+
+	D_FF RegLocReg (.q(Reg2Loc), .d(Reg2LocEX), .reset, .clk);
+	D_FF MemReg (q, d, .reset, .clk);
+	D_FF BrTakeReg (q, d, .reset, .clk);
+	D_FF UncondReg (q, d, .reset, .clk);
+	D_FF shiftDReg (q, d, .reset, .clk);
+	D_FF RegEnReg (q, d, .reset, .clk);
+	D_FF MemWrReg (q, d, .reset, .clk);
+	D_FF MemEnReg (q, d, .reset, .clk);
 
 	//Register Fetch
 	Pipeline_Register RegFetch1 (.In(ReadData1), .Out(ReadData1_Out), .clk, .reset);
 	Pipeline_Register RegFetch2 (.In(inputB), .Out(ReadData2_Out), .clk, .reset);
 
+	D_FF MemRegEX (q, d, .reset, .clk);
+	D_FF RegWriteEx (q, d, .reset, .clk);
+	D_FF MemReadEx (q, d, .reset, .clk);
+
 	//Execute
 	Pipeline_Register Execute (.In(ALUresult), .Out(ALUresult_Out), .clk, .reset);
+
+	D_FF RegWriteWr (q, d, .reset, .clk);
+
 
 	//Data memory
 	Pipeline_Register MEM (.In(writeRegData), .Out(MemRead_Out), .clk, .reset);
@@ -120,11 +140,12 @@ module ARMCPU(clk, reset);
 			if(BrTaken) PC <= brAddr;
 			else PC <= nextAddr;
 		end
-		if(cntrl==3'b011) begin
-			negativehold <= negative;
-			zerohold <= zero;
-			overflowhold <= overflow;
-			carry_outhold <= carry_out;
+		//set flags only for ADDS and SUBS
+		if(opCode==11'b10101011000 | opCode==11'b11101011000) begin
+			negative <= negativeHold;
+			zero <= zeroHold;
+			overflow <= overflowHold;
+			carry_out <= carry_outHold;
 		end
 	end
 
