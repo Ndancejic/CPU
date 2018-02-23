@@ -24,7 +24,7 @@ module ARMCPU(clk, reset);
 	logic [1:0] ALUOp_ctrl, ALUOp;
 	logic [2:0] ALUSrc_ctrl, ALUSrc;
 	logic [2:0] MEM_Reg;
-    logic [1:0] WB_Reg;
+  logic [1:0] WB_Reg;
 
 	//Execute logic
 	logic [63:0] shiftedVal, multRes, mult_high;
@@ -48,16 +48,16 @@ module ARMCPU(clk, reset);
 
 	//Pipeline Stages
 	//Instruction Fetch
-	ARMALU pc_plus_4 (.A(PC), .B(64'h0000000000000004), .cntrl(3'b010), .result(nextAddr), .negative(), .zero(), .overflow(), .carry_out());
-	instructmem instructions (.address(PC), .instruction(instr), .clk);
-	IF_ID  IFetch (.clk, .reset, .PC, .instr, .PC_Out(PC_IFetch), .instr_Out(instr_IFetch));
+	ARMALU pc_plus_4 (.A(PC), .B(64'h0000000000000004), .cntrl(3'b010), .result(nextAddr), .negative(), .zero(), .overflow(), .carry_out()); //Adder for address
+	instructmem instructions (.address(PC), .instruction(instr), .clk); // instructions memory set
+	IF_ID  IFetch (.clk, .reset, .PC, .instr, .PC_Out(PC_IFetch), .instr_Out(instr_IFetch)); //Pipeline register for PC and instructions
 
 	//Register Fetch
-	muxRegToLoc mtr(.in1(Rb), .in2(Rw), .sel(Reg2Loc), .out(reg2));
+	muxRegToLoc mtr(.in1(Rb), .in2(Rw), .sel(Reg2Loc), .out(reg2)); //mux for using Rb or Rw
 	regfile registers (.ReadData1, .ReadData2, .WriteData(writeRegData), .ReadRegister1(Ra),
-						.ReadRegister2(reg2), .WriteRegister(Rw_Mem), .RegWrite(RegWriteEn), .clk, .reset);
-	signExtend dtadd(instr_IFetch, dtAddr64, 2'b00);
-	signExtend immsign(instr_IFetch, ALUimm64, 2'b01);
+						.ReadRegister2(reg2), .WriteRegister(Rw_Mem), .RegWrite(RegWriteEn), .clk, .reset); //regfile
+	signExtend dtadd(instr_IFetch, dtAddr64, 2'b00); //address sign extend
+	signExtend immsign(instr_IFetch, ALUimm64, 2'b01); //immediate sign extend
 	signExtend brsign(instr_IFetch, brAddr64, 2'b10);
 	signExtend cbsign(instr_IFetch, cbAddr64, 2'b11);
 	signExtend ins(.in(instr_IFetch), .out(instr64), .ext());
@@ -87,7 +87,7 @@ module ARMCPU(clk, reset);
 					.MEM_WB_Rw(Rw_Mem), .ID_EX_Ra(Ra), .ID_EX_Rb(Rb), .ForwardA, .ForwardB);
 
 	EX_MEM exmem(.clk, .reset, .MEM(MEM_Reg), .WB(WB_Reg), .brAddr(brPass), .ReadData2(ReadData2_Reg), .Rw(Rw_Reg), .ALU_Result(ALUresult),
-				.zero(zeroIn), .negative(negativeIn), .overflow(overflowIn), .carry(carry_outIn), .brAddr_Out(brAddr), .ReadData2_Out(ReadData2_Exec), 
+				.zero(zeroIn), .negative(negativeIn), .overflow(overflowIn), .carry(carry_outIn), .brAddr_Out(brAddr), .ReadData2_Out(ReadData2_Exec),
 				.MEM_Out({BrTaken, MemReadEn, MemWrite}), .WB_Out(WB_Exec), .Rw_Out(Rw_Exec), .ALU_Result_Out(ALUresult_Exec), .zero_Out(zeroHold),
 				.negative_Out(negativeHold), .overflow_Out(overflowHold), .carry_Out(carry_outHold));
 

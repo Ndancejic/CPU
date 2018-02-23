@@ -32,7 +32,6 @@ add wave -noupdate /ARMCPU_testbench/armcp/negative
 add wave -noupdate /ARMCPU_testbench/armcp/zero
 add wave -noupdate /ARMCPU_testbench/armcp/overflow
 add wave -noupdate /ARMCPU_testbench/armcp/carry_out
-add wave -noupdate /ARMCPU_testbench/armcp/ALUimm
 add wave -noupdate /ARMCPU_testbench/armcp/ALUimm64
 add wave -noupdate /ARMCPU_testbench/armcp/xfer_size
 add wave -noupdate /ARMCPU_testbench/armcp/MemRead
@@ -41,6 +40,17 @@ add wave -noupdate /ARMCPU_testbench/armcp/shamt
 add wave -noupdate /ARMCPU_testbench/armcp/multRes
 add wave -noupdate /ARMCPU_testbench/armcp/mult_high
 add wave -noupdate -radix decimal /ARMCPU_testbench/armcp/brRes
+add wave -noupdate /ARMCPU_testbench/armcp/ReadData1_Reg
+add wave -noupdate /ARMCPU_testbench/armcp/ReadData2_Reg
+add wave -noupdate /ARMCPU_testbench/armcp/opCode_Reg
+add wave -noupdate /ARMCPU_testbench/armcp/MEM_Reg
+add wave -noupdate /ARMCPU_testbench/armcp/WB_Reg
+add wave -noupdate /ARMCPU_testbench/armcp/Rw_Exec
+add wave -noupdate /ARMCPU_testbench/armcp/WB_Exec
+add wave -noupdate /ARMCPU_testbench/armcp/writeRegData
+add wave -noupdate /ARMCPU_testbench/armcp/ALUIn1
+add wave -noupdate /ARMCPU_testbench/armcp/ALUIn2
+add wave -noupdate /ARMCPU_testbench/armcp/inputB
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {12500000000 ps} 0}
 quietly wave cursor active 1
