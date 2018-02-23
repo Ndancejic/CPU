@@ -7,9 +7,9 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 	always_comb begin
 		casex(opCode)
 							//R type
-			11'b1xxx1011000:
+			11'b1xx0101x000:
 								begin
-									Reg2Loc <= 1;
+									Reg2Loc <= 0;
 									MemToReg <= 0;
 									if(opCode[7]) ALUSrc <= 3'b011; else ALUSrc <= 3'b000;
 									BrTaken <= 0;
@@ -21,7 +21,7 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 							//ADDI
 			11'b1001000100x:
 							begin
-									Reg2Loc<=1;
+									Reg2Loc<=0;
 									MemToReg<=0;
 									ALUSrc<= 3'b001;
 									BrTaken<=0;
@@ -68,7 +68,7 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 									ALUOp<=opCode[9:8];
 									ALUSrc<= {(opCode[10:9]==2'b00),2'b00};
 							end
-		endcase					
+		endcase
 	end
 endmodule
 

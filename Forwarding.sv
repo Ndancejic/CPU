@@ -1,4 +1,4 @@
-module Forwarding (clk, reset, EX_MEM_RegWrite, MEM_WB_RegWrite, EX_MEM_Rw,
+module Forwarding (EX_MEM_RegWrite, MEM_WB_RegWrite, EX_MEM_Rw,
   MEM_WB_Rw, ID_EX_Ra, ID_EX_Rb, ForwardA, ForwardB);
 
   input logic EX_MEM_RegWrite;
@@ -15,7 +15,7 @@ module Forwarding (clk, reset, EX_MEM_RegWrite, MEM_WB_RegWrite, EX_MEM_Rw,
     if(EX_MEM_RegWrite && (EX_MEM_Rw != 0) && (EX_MEM_Rw == ID_EX_Ra))
       ForwardA = 10; // EX Hazard
 
-    else if(MEM_WB_RegWrite && (MEM_WB_RegisterRw != 0) && (EX_MEM_Rw != ID_EX_Ra)
+    else if(MEM_WB_RegWrite && (MEM_WB_Rw != 0) && (EX_MEM_Rw != ID_EX_Ra)
       && (MEM_WB_Rw == ID_EX_Ra)) ForwardA = 01; //Mem Hazard
 
     else ForwardA = 00;
@@ -24,7 +24,7 @@ module Forwarding (clk, reset, EX_MEM_RegWrite, MEM_WB_RegWrite, EX_MEM_Rw,
     if(EX_MEM_RegWrite && (EX_MEM_Rw != 0) && (EX_MEM_Rw == ID_EX_Rb))
       ForwardB = 10;// EX Hazard
 
-    else if(MEM_WB_RegWrite && (MEM_WB_RW != 0) && (EX_MEM_Rw != ID_EX_Rb)
+    else if(MEM_WB_RegWrite && (MEM_WB_Rw != 0) && (EX_MEM_Rw != ID_EX_Rb)
       && (MEM_WB_Rw == ID_EX_Rb)) ForwardB = 01; //Mem Hazard
 
     else ForwardB = 00;
