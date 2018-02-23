@@ -32,8 +32,6 @@ add wave -noupdate /ARMCPU_testbench/armcp/negative
 add wave -noupdate /ARMCPU_testbench/armcp/zero
 add wave -noupdate /ARMCPU_testbench/armcp/overflow
 add wave -noupdate /ARMCPU_testbench/armcp/carry_out
-add wave -noupdate /ARMCPU_testbench/armcp/negativehold
-add wave -noupdate /ARMCPU_testbench/armcp/overflowhold
 add wave -noupdate /ARMCPU_testbench/armcp/ALUimm
 add wave -noupdate /ARMCPU_testbench/armcp/ALUimm64
 add wave -noupdate /ARMCPU_testbench/armcp/xfer_size
@@ -60,4 +58,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {130514586898 ps}
+WaveRestoreZoom {4883511142447 ps} {5014025729345 ps}

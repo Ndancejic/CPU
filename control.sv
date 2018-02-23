@@ -1,6 +1,5 @@
-module control(opCode, zero, negative, overflow, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir, MemReadEn);
+module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir, MemReadEn);
 	input logic [10:0] opCode;
-	input logic zero,negative, overflow;
 	output logic Reg2Loc, MemToReg, BrTaken, RegWriteEn, MemWrite, UncondBr, shiftDir, MemReadEn;
 	output logic [1:0] ALUOp;
 	output logic [2:0] ALUSrc;
@@ -60,7 +59,7 @@ module control(opCode, zero, negative, overflow, Reg2Loc, MemToReg, ALUSrc, BrTa
 			11'bxxx101xxxxx:
 							begin
 									Reg2Loc <= opCode[9];
-									BrTaken<= (opCode[10:9]==2'b00) | opCode[10]&zero | opCode[9]&negative&~overflow;
+									BrTaken<= 1; //| opCode[10]&zero | opCode[9]&negative&~overflow;
 									UncondBr<= (opCode[10:9]==2'b00);
 									RegWriteEn<=0;
 									MemWrite<=0;

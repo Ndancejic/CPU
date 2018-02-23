@@ -18,6 +18,19 @@ module muxRegToLoc(in1, in2, sel, out);
 	end
 endmodule
 
+module mux3(in1, in2, in3, sel, out);
+	input logic [63:0] in1, in2, in3;
+	input logic [1:0] sel;
+	output logic [63:0] out;
+	always_comb begin
+		case(sel)
+			2'b00: out <= in1;
+			2'b01: out <= in2;
+			2'b10: out <= in3;
+		endcase
+	end
+endmodule
+
 module mux8(ReadData2, ALUimm64, shiftedVal, multRes, dtAddr64, ALUSrc, inputB);
 	input logic [63:0] ReadData2, ALUimm64, shiftedVal, multRes, dtAddr64;
 	output logic [63:0] inputB;
