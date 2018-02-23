@@ -7,34 +7,18 @@ module control(opCode, zero, negative, overflow, Reg2Loc, MemToReg, ALUSrc, BrTa
 
 	always_comb begin
 		casex(opCode)
-							//ADDS
-			11'b10101011000:
+							//R type
+			11'b1xxx1011000:
 								begin
 									Reg2Loc <= 1;
 									MemToReg <= 0;
-									ALUSrc <= 3'b000;
+									if(opCode[7]) ALUSrc <= 3'b011; else ALUSrc <= 3'b000;
 									BrTaken <= 0;
 									RegWriteEn <= 1;
 									MemWrite <= 0;
 									MemReadEn <= 0;
 									ALUOp <= 2'b10;
-									shiftDir<=0;
-									UncondBr<=0;
 								end
-							 //SUBS
-			11'b11101011000:
-							begin
-									Reg2Loc<=1;
-									MemToReg<=0;
-									ALUSrc<= 3'b000;
-									BrTaken<=0;
-									RegWriteEn<=1;
-									MemWrite<=0;
-									MemReadEn <= 0;
-									ALUOp<=2'b10;
-									UncondBr<=0;
-									shiftDir<=0;
-							end
 							//ADDI
 			11'b1001000100x:
 							begin
@@ -46,135 +30,46 @@ module control(opCode, zero, negative, overflow, Reg2Loc, MemToReg, ALUSrc, BrTa
 									MemWrite<=0;
 									MemReadEn <= 0;
 									ALUOp<=2'b10;
-									shiftDir<=0;
-									UncondBr<=0;
 							end
-							//LDUR
-			11'b11111000010:
-							begin
-									Reg2Loc<=0;
-									MemToReg<=1;
-									ALUSrc<=3'b100;
-									BrTaken<=0;
-									RegWriteEn<=1;
-									MemWrite<=0;
-									MemReadEn <= 1;
-									ALUOp<=2'b00;
-									shiftDir<=0;
-									UncondBr<=0;
-							end
-							//STUR
-			11'b11111000000:
-							begin
-									Reg2Loc<=0;
-									ALUSrc<=3'b100;
-									BrTaken<=0;
-									RegWriteEn<=0;
-									MemWrite<=1;
-									MemReadEn <= 0;
-									ALUOp<=2'b00;
-									MemToReg<=0;
-									shiftDir<=0;
-									UncondBr<=0;
-							end
-							//B
-			11'b000101xxxxx:
-							begin
-									Reg2Loc <= 0;
-									BrTaken<=1;
-									UncondBr<=1;
-									RegWriteEn<=0;
-									MemWrite<=0;
-									MemReadEn <=0;
-									MemToReg<=0;
-									ALUOp<=2'b00;
-									ALUSrc<=3'b100;
-									shiftDir<=0;
-							end
-							//CBZ
-			11'b10110100xxx:
-							begin
-									Reg2Loc<=0;
-									ALUSrc<=3'b000;
-									BrTaken<=zero;
-									UncondBr<=0;
-									RegWriteEn<=0;
-									MemWrite<=0;
-									MemReadEn <=0;
-									ALUOp<=2'b01;
-									MemToReg<=0;
-									shiftDir<=0;
-							end
-							//LSL
-			11'b11010011011:
+							//shift
+			11'b1101001101x:
 							begin
 									Reg2Loc<=1;
 									MemToReg<=0;
 									ALUSrc<=3'b010;
 									BrTaken<=0;
-									shiftDir<=0;
+									shiftDir<=~opCode[0];
 									RegWriteEn<=1;
 									MemWrite<=0;
 									MemReadEn <= 0;
 									ALUOp<=2'b10;
-									UncondBr<=0;
 							end
-							// LSR
-			11'b11010011010:
-							begin
-									Reg2Loc<=1;
-									MemToReg<=0;
-									ALUSrc<=3'b010;
-									BrTaken<=0;
-									shiftDir<=1;
-									RegWriteEn<=1;
-									MemWrite<=0;
-									MemReadEn <= 0;
-									ALUOp<=2'b10;
-									UncondBr<=0;
-							end
-							// MULT
-			11'b10011011000:
-							begin
-									Reg2Loc <= 1;
-									MemToReg <= 0;
-									ALUSrc <= 3'b011;
-									BrTaken <= 0;
-									RegWriteEn <= 1;
-									MemWrite <= 0;
-									MemReadEn <=0;
-									ALUOp <= 2'b10;
-									shiftDir<=0;
-									UncondBr<=0;
-							 end
-							 //B.LT
-			11'b01010100xxx:
-							begin
-									Reg2Loc<=1;
-									MemToReg<=0;
-									ALUSrc<= 3'b000;
-									BrTaken<=negative&~overflow;
-									RegWriteEn<=0;
-									MemWrite<=0;
-									MemReadEn <= 0;
-									ALUOp<=2'b10;
-									shiftDir<=0;
-									UncondBr<=0;
-							end
-							//default case
-			/*default:
+							//LDUR/STUR
+			11'b111110000x0:
 							begin
 									Reg2Loc<=0;
-									MemToReg<=0;
-									ALUSrc<= 3'b000;
+									MemToReg<=opCode[1];
+									ALUSrc<=3'b100;
 									BrTaken<=0;
+									RegWriteEn<=opCode[1];
+									MemWrite<=~opCode[1];
+									MemReadEn <= opCode[1];
+									ALUOp<=2'b00;
+							end
+							//CB type
+			11'bxxx101xxxxx:
+							begin
+									Reg2Loc <= opCode[9];
+									BrTaken<= (opCode[10:9]==2'b00) | opCode[10]&zero | opCode[9]&negative&~overflow;
+									UncondBr<= (opCode[10:9]==2'b00);
 									RegWriteEn<=0;
 									MemWrite<=0;
-									ALUOp<=2'b10;
-									shiftDir<=0;
-									UncondBr<=0;
-							end*/
-		endcase
+									MemReadEn <=0;
+									MemToReg<=0;
+									ALUOp<=opCode[9:8];
+									ALUSrc<= {(opCode[10:9]==2'b00),2'b00};
+							end
+		endcase					
 	end
 endmodule
 
