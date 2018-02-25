@@ -51,6 +51,8 @@ add wave -noupdate /ARMCPU_testbench/armcp/writeRegData
 add wave -noupdate /ARMCPU_testbench/armcp/ALUIn1
 add wave -noupdate /ARMCPU_testbench/armcp/ALUIn2
 add wave -noupdate /ARMCPU_testbench/armcp/inputB
+add wave -noupdate /ARMCPU_testbench/armcp/delay
+add wave -noupdate /ARMCPU_testbench/armcp/instrDelay
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {12500000000 ps} 0}
 quietly wave cursor active 1

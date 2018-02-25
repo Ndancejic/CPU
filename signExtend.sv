@@ -9,7 +9,7 @@ module signExtend(in, out, ext);
 			2'b01:	out<={52'h0000000000000,in[21:10]}; //for I type
 			2'b10:	if(in[25]) out<={38'hFFFFFFFFFF,in[25:0]}; else out<={38'h0000000000,in[25:0]};// for B type
 			2'b11:	if(in[23]) out<= {46'hFFFFFFFFFFFF,in[23:5]}; else out<={46'h000000000000,in[23:5]}; // for CB type
-			//default: out <= {32'hFFFFFFFF,in[31:0]}&in[31] | {32'h00000000,in[31:0]}&~in[31];
+			default: if(in[31]) out <= {32'hFFFFFFFF,in[31:0]}; else out<={32'h00000000,in[31:0]};
 		endcase	
 	end
 endmodule

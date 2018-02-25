@@ -23,6 +23,7 @@ vlog "./signExtend.sv"
 vlog "./muxes.sv"
 vlog "./Pipeline_Register.sv"
 vlog "./Forwarding.sv"
+vlog "./delaySlot.sv"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the

@@ -7,9 +7,9 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 	always_comb begin
 		casex(opCode)
 							//R type
-			11'b1xx0101x000:
+			11'b1xxx1011000:
 								begin
-									Reg2Loc <= 0;
+									Reg2Loc <= 1;
 									MemToReg <= 0;
 									if(opCode[7]) ALUSrc <= 3'b011; else ALUSrc <= 3'b000;
 									BrTaken <= 0;
@@ -21,7 +21,7 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 							//ADDI
 			11'b1001000100x:
 							begin
-									Reg2Loc<=0;
+									Reg2Loc<=1;
 									MemToReg<=0;
 									ALUSrc<= 3'b001;
 									BrTaken<=0;
@@ -72,7 +72,7 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 	end
 endmodule
 
-module control_testbench();
+/*module control_testbench();
 	parameter delay = 100000;
 
 	  logic [10:0] opCode;
@@ -91,4 +91,4 @@ module control_testbench();
 		assert(Reg2Loc==0 && ALUSrc==2'b00 && BrTaken==1 &&UncondBr==0 && RegWriteEn==0&&MemWrite==0&&ALUOp==2'b01);
 
 	end
-endmodule
+endmodule*/
