@@ -5,7 +5,7 @@ module delaySlot (clk, delay, instr);
   output logic delay;
 
   always_ff @(posedge clk) begin
-    if (instr[31:21] == 11'bxxx101xxxxx | instr[31:21] == 11'b111110000x0) delay <= 1;
+    if (instr[31:21] inside {11'b???101?????} | instr[31:21] inside {11'b111110000?0}) delay <= 1;
     else delay <= 0;
   end
 
@@ -18,7 +18,7 @@ module delayInstr (delay, instr, instrDelay);
   output logic [31:0] instrDelay;
 
   always_comb begin
-    if(delay) instrDelay <= 32'b10010001000000000000001111111111;
+    if(delay) instrDelay <= 32'h00000000;
     else instrDelay <= instr;
   end
 

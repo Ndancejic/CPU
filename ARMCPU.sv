@@ -118,7 +118,7 @@ module ARMCPU(clk, reset);
 		if(reset)
 			PC <= 64'h0000000000000000;
 		else begin
-			if(BrTaken&(UncondBr | zeroHold | negativeHold&~overflowHold)) PC <= brAddr;
+			if(MEM_Reg[2]&(UncondBr | zero | negative&~overflow)) PC <= brPass;
 			else if (delay) PC <= PC;
 			else PC <= nextAddr;
 		end
