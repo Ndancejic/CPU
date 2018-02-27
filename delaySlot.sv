@@ -18,7 +18,7 @@ module delayInstr (delay, instr, instrDelay);
   output logic [31:0] instrDelay;
 
   always_comb begin
-    if(delay) instrDelay <= 32'h00000000;
+    if(delay) instrDelay <= 32'b10010001000000000000001111111111;//NOOP
     else instrDelay <= instr;
   end
 

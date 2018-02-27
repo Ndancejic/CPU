@@ -25,10 +25,11 @@ module ARMCPU(clk, reset);
 	logic [2:0] ALUSrc_ctrl, ALUSrc;
 	logic [2:0] MEM_Reg;
   logic [1:0] WB_Reg;
+  logic [5:0]  shamt;
 
 	//Execute logic
 	logic [63:0] shiftedVal, multRes, mult_high;
-	logic [5:0]  shamt;
+	logic [5:0]  shamt_Reg;
 	logic [4:0] Rw_Exec;
 	logic [63:0] shiftedBrAddr, shiftedcb,brAddr, brPass, brRes;
 	logic [63:0] inputB, ALUresult, ALUresult_Exec, ReadData2_Exec, ALUIn1, ALUIn2;
@@ -71,9 +72,9 @@ module ARMCPU(clk, reset);
 				.MemWrite(MemWrite_ctrl), .UncondBr(UncondBr_ctrl), .ALUOp(ALUOp_ctrl), .shiftDir(shiftDir_ctrl), .MemReadEn(MemReadEn_ctrl));
 	ID_EX idex (.clk, .reset, .EX({Reg2Loc_ctrl,ALUOp_ctrl,ALUSrc_ctrl,shiftDir_ctrl, UncondBr_ctrl}), .MEM({BrTaken_ctrl,MemReadEn_ctrl,MemWrite_ctrl}),
 				.WB({RegWriteEn_ctrl,MemToReg_ctrl}), .PC(PC_IFetch), .ReadData1(ALUIn1), .ReadData2(ALUIn2), .ALUimm64, .brAddr64, .cbAddr64, .dtAddr64,
-				.opCode, .Ra, .Rb, .Rw, .PC_Out(PC_Reg), .ReadData1_Out(ReadData1_Reg), .ReadData2_Out(ReadData2_Reg), .ALUimm64_Out(ALUimm64_Reg),
+				.opCode,.shamt, .Ra, .Rb, .Rw, .PC_Out(PC_Reg), .ReadData1_Out(ReadData1_Reg), .ReadData2_Out(ReadData2_Reg), .ALUimm64_Out(ALUimm64_Reg),
 				.brAddr64_Out(brAddr64_Reg), .cbAddr64_Out(cbAddr64_Reg), .dtAddr64_Out(dtAddr64_Reg), .EX_Out({Reg2Loc,ALUOp,ALUSrc,shiftDir, UncondBr}),
-				.MEM_Out(MEM_Reg), .WB_Out(WB_Reg), .opCode_Out(opCode_Reg), .Ra_Out(Ra_Reg), .Rb_Out(Rb_Reg), .Rw_Out(Rw_Reg));
+				.MEM_Out(MEM_Reg), .WB_Out(WB_Reg), .opCode_Out(opCode_Reg),.shamt_Out(shamt_Reg), .Ra_Out(Ra_Reg), .Rb_Out(Rb_Reg), .Rw_Out(Rw_Reg));
 
 	//Execute
 	shifter shiftLeft2(.value(brAddr64_Reg), .direction(1'b0), .distance(6'b000010), .result(shiftedBrAddr));
@@ -81,7 +82,7 @@ module ARMCPU(clk, reset);
 	mux2 mbr(.in1(shiftedBrAddr), .in2(shiftedcb), .sel(UncondBr), .out(brRes));
 	ARMALU bradd (.A(PC_Reg), .B(brRes), .cntrl(3'b010), .result(brPass), .negative(), .zero(), .overflow(), .carry_out());
 	mult m1(.A(ReadData1_Reg), .B(ReadData2_Reg), .doSigned(1'b1), .mult_low(multRes), .mult_high());
-	shifter shiftVal(.value(ReadData1_Reg), .direction(shiftDir), .distance(shamt), .result(shiftedVal));
+	shifter shiftVal(.value(ReadData1_Reg), .direction(shiftDir), .distance(shamt_Reg), .result(shiftedVal));
 	mux8 m8(.ReadData2(ReadData2_Reg), .ALUimm64(ALUimm64_Reg), .shiftedVal, .multRes, .dtAddr64(dtAddr64_Reg), .ALUSrc, .inputB);
 	ALUControl aluctrl (.ALUOp, .OpcodeField(opCode_Reg), .operation(cntrl));
 	ARMALU ALUblock (.A(ReadData1_Reg), .B(inputB), .cntrl(cntrl), .result(ALUresult),
@@ -118,17 +119,19 @@ module ARMCPU(clk, reset);
 		if(reset)
 			PC <= 64'h0000000000000000;
 		else begin
-			if(MEM_Reg[2]&(UncondBr | zero | negative&~overflow)) PC <= brPass;
+			if(MEM_Reg[2]&(UncondBr | zeroIn | negativeIn&~overflowIn)) PC <= brPass;
 			else if (delay) PC <= PC;
 			else PC <= nextAddr;
+			
+			if(opCode_Reg==11'b10101011000 | opCode_Reg==11'b11101011000) begin
+			negative <= negativeIn;
+			zero <= zeroIn;
+			overflow <= overflowIn;
+			carry_out <= carry_outIn;
+			end
 		end
 		//set flags only for ADDS and SUBS
-		if(opCode==11'b10101011000 | opCode==11'b11101011000) begin
-			negative <= negativeHold;
-			zero <= zeroHold;
-			overflow <= overflowHold;
-			carry_out <= carry_outHold;
-		end
+		
 	end
 
 endmodule

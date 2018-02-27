@@ -13,9 +13,9 @@ module IF_ID(clk, reset, PC, instr, PC_Out, instr_Out);
 	end
 endmodule
 
-module ID_EX (clk, reset, EX, MEM, WB, PC, ReadData1, ReadData2, ALUimm64, brAddr64, cbAddr64, dtAddr64, opCode, Ra, Rb, Rw,
+module ID_EX (clk, reset, EX, MEM, WB, PC, ReadData1, ReadData2, ALUimm64, brAddr64, cbAddr64, dtAddr64, opCode,shamt, Ra, Rb, Rw,
 				PC_Out, ReadData1_Out, ReadData2_Out, ALUimm64_Out, brAddr64_Out, cbAddr64_Out, dtAddr64_Out, 
-				EX_Out, MEM_Out, WB_Out, opCode_Out, Ra_Out, Rb_Out, Rw_Out);
+				EX_Out, MEM_Out, WB_Out, opCode_Out,shamt_Out, Ra_Out, Rb_Out, Rw_Out);
   input logic clk, reset;
   input logic [63:0] PC;
   input logic [63:0] ReadData1, ReadData2, ALUimm64, brAddr64, cbAddr64, dtAddr64;
@@ -23,6 +23,7 @@ module ID_EX (clk, reset, EX, MEM, WB, PC, ReadData1, ReadData2, ALUimm64, brAdd
   input logic [2:0] MEM; // Branch, MemRead, MemWrite
   input logic [1:0] WB; //RegWrite, MemToReg
   input logic [10:0] opCode;
+  input logic [5:0]  shamt;
   input logic [4:0] Ra, Rb, Rw;
   output logic [63:0] PC_Out;
   output logic [63:0] ReadData1_Out, ReadData2_Out, ALUimm64_Out, brAddr64_Out, cbAddr64_Out, dtAddr64_Out;
@@ -30,6 +31,7 @@ module ID_EX (clk, reset, EX, MEM, WB, PC, ReadData1, ReadData2, ALUimm64, brAdd
   output logic [2:0] MEM_Out; 
   output logic [1:0] WB_Out; 
   output logic [10:0] opCode_Out;
+  output logic [5:0]  shamt_Out;
   output logic [4:0] Ra_Out, Rb_Out, Rw_Out;
   
   always_ff @(posedge clk) begin
@@ -48,6 +50,7 @@ module ID_EX (clk, reset, EX, MEM, WB, PC, ReadData1, ReadData2, ALUimm64, brAdd
 		Rw_Out <= Rw;
 		Ra_Out <= Ra;
 		Rb_Out <= Rb;
+		shamt_Out <= shamt;
 	end
   end
 endmodule
