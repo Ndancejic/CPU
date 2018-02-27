@@ -119,19 +119,24 @@ module ARMCPU(clk, reset);
 		if(reset)
 			PC <= 64'h0000000000000000;
 		else begin
-			if(MEM_Reg[2]&(UncondBr | zeroIn | negativeIn&~overflowIn)) PC <= brPass;
+			if(MEM_Reg[2]&(UncondBr | zeroIn | negative&~overflowIn)) PC <= brPass;
 			else if (delay) PC <= PC;
 			else PC <= nextAddr;
-			
+
 			if(opCode_Reg==11'b10101011000 | opCode_Reg==11'b11101011000) begin
 			negative <= negativeIn;
 			zero <= zeroIn;
 			overflow <= overflowIn;
 			carry_out <= carry_outIn;
+			end else begin
+				negative <= 0;
+				zero <= 0;
+				overflow <= 0;
+				carry_out <= 0;
 			end
 		end
 		//set flags only for ADDS and SUBS
-		
+
 	end
 
 endmodule
