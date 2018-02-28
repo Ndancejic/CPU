@@ -92,6 +92,10 @@ add wave -noupdate /ARMCPU_testbench/armcp/MemToReg
 add wave -noupdate /ARMCPU_testbench/armcp/RegWriteEn
 add wave -noupdate /ARMCPU_testbench/armcp/writeRegData
 add wave -noupdate /ARMCPU_testbench/armcp/delay
+add wave -noupdate /ARMCPU_testbench/armcp/CBZ
+add wave -noupdate /ARMCPU_testbench/armcp/bLT
+add wave -noupdate /ARMCPU_testbench/armcp/CBZout
+add wave -noupdate /ARMCPU_testbench/armcp/bLTout
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {94931356 ps} 0}
 quietly wave cursor active 1

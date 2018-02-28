@@ -17,7 +17,13 @@ module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite,
 					CBZ <= 1;
 					bLT <= 0;
 				end
+			default:
+				begin
+					CBZ <= 0;
+					bLT <= 0;
+				end
 		endcase
+
 		casex(opCode)
 							//R type
 			11'b1xxx1011000:

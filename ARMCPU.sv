@@ -129,11 +129,6 @@ module ARMCPU(clk, reset);
 			zero <= zeroIn;
 			overflow <= overflowIn;
 			carry_out <= carry_outIn;
-			end else begin
-				negative <= 0;
-				zero <= 0;
-				overflow <= 0;
-				carry_out <= 0;
 			end
 		end
 		//set flags only for ADDS and SUBS
