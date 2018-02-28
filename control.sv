@@ -1,10 +1,23 @@
-module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir, MemReadEn);
+module control(opCode, Reg2Loc, MemToReg, ALUSrc, BrTaken, RegWriteEn, MemWrite, UncondBr, ALUOp, shiftDir, MemReadEn, bLT, CBZ);
 	input logic [10:0] opCode;
 	output logic Reg2Loc, MemToReg, BrTaken, RegWriteEn, MemWrite, UncondBr, shiftDir, MemReadEn;
 	output logic [1:0] ALUOp;
 	output logic [2:0] ALUSrc;
+	output logic CBZ, bLT;
 
 	always_comb begin
+		casex(opCode)
+			11'b01010100xxx:
+				begin
+					CBZ <= 0;
+					bLT <= 1;
+				end
+			11'b10110100xxx:
+				begin
+					CBZ <= 1;
+					bLT <= 0;
+				end
+		endcase
 		casex(opCode)
 							//R type
 			11'b1xxx1011000:

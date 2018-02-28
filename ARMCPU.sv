@@ -26,6 +26,7 @@ module ARMCPU(clk, reset);
 	logic [2:0] MEM_Reg;
   logic [1:0] WB_Reg;
   logic [5:0]  shamt;
+	logic bLT, CBZ, bLTout, CBZout;
 
 	//Execute logic
 	logic [63:0] shiftedVal, multRes, mult_high;
@@ -69,12 +70,12 @@ module ARMCPU(clk, reset);
 	Forwarding frwd(.clk, .reset, .EX_MEM_RegWrite(WB_Reg[1]), .MEM_WB_RegWrite(WB_Exec[1]), .EX_MEM_Rw(Rw_Reg),
 					.MEM_WB_Rw(Rw_Exec), .ID_EX_Ra(Ra), .ID_EX_Rb(reg2), .ForwardA, .ForwardB);
 	control c1 (.opCode, .Reg2Loc(Reg2Loc_ctrl), .MemToReg(MemToReg_ctrl), .ALUSrc(ALUSrc_ctrl), .BrTaken(BrTaken_ctrl), .RegWriteEn(RegWriteEn_ctrl),
-				.MemWrite(MemWrite_ctrl), .UncondBr(UncondBr_ctrl), .ALUOp(ALUOp_ctrl), .shiftDir(shiftDir_ctrl), .MemReadEn(MemReadEn_ctrl));
+				.MemWrite(MemWrite_ctrl), .UncondBr(UncondBr_ctrl), .ALUOp(ALUOp_ctrl), .shiftDir(shiftDir_ctrl), .MemReadEn(MemReadEn_ctrl), .CBZ, .bLT);
 	ID_EX idex (.clk, .reset, .EX({Reg2Loc_ctrl,ALUOp_ctrl,ALUSrc_ctrl,shiftDir_ctrl, UncondBr_ctrl}), .MEM({BrTaken_ctrl,MemReadEn_ctrl,MemWrite_ctrl}),
 				.WB({RegWriteEn_ctrl,MemToReg_ctrl}), .PC(PC_IFetch), .ReadData1(ALUIn1), .ReadData2(ALUIn2), .ALUimm64, .brAddr64, .cbAddr64, .dtAddr64,
 				.opCode,.shamt, .Ra, .Rb, .Rw, .PC_Out(PC_Reg), .ReadData1_Out(ReadData1_Reg), .ReadData2_Out(ReadData2_Reg), .ALUimm64_Out(ALUimm64_Reg),
 				.brAddr64_Out(brAddr64_Reg), .cbAddr64_Out(cbAddr64_Reg), .dtAddr64_Out(dtAddr64_Reg), .EX_Out({Reg2Loc,ALUOp,ALUSrc,shiftDir, UncondBr}),
-				.MEM_Out(MEM_Reg), .WB_Out(WB_Reg), .opCode_Out(opCode_Reg),.shamt_Out(shamt_Reg), .Ra_Out(Ra_Reg), .Rb_Out(Rb_Reg), .Rw_Out(Rw_Reg));
+				.MEM_Out(MEM_Reg), .WB_Out(WB_Reg), .opCode_Out(opCode_Reg),.shamt_Out(shamt_Reg), .Ra_Out(Ra_Reg), .Rb_Out(Rb_Reg), .Rw_Out(Rw_Reg), .CBZin(CBZ), .bLTin(bLT), .CBZout(CBZout), .bLTout(bLTout));
 
 	//Execute
 	shifter shiftLeft2(.value(brAddr64_Reg), .direction(1'b0), .distance(6'b000010), .result(shiftedBrAddr));
@@ -119,7 +120,7 @@ module ARMCPU(clk, reset);
 		if(reset)
 			PC <= 64'h0000000000000000;
 		else begin
-			if(MEM_Reg[2]&(UncondBr | zeroIn | negative&~overflowIn)) PC <= brPass;
+			if(MEM_Reg[2]&(UncondBr | zeroIn&CBZout | bLTout&negative&~overflow)) PC <= brPass;
 			else if (delay) PC <= PC;
 			else PC <= nextAddr;
 
